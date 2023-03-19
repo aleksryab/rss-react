@@ -15,7 +15,7 @@ export class ProductsList extends Component<Record<string, never>, ProductsListS
   };
 
   componentDidMount(): void {
-    fetch('https://dummyjson.com/products')
+    fetch('https://dummyjson.com/products?limit=21')
       .then((response) => response.json() as Promise<IResponse>)
       .then((data) => this.setState({ isLoading: false, products: data.products }));
   }

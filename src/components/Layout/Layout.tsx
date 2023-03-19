@@ -1,4 +1,5 @@
 import { Component, ReactNode } from 'react';
+import Footer from '../Footer';
 import Header from '../Header';
 import './Layout.scss';
 
@@ -18,7 +19,7 @@ export class Layout extends Component<LayoutProps> {
       <>
         <Header title={title} />
         <main className="main container">{children}</main>
-        <footer>2023</footer>
+        <Footer />
       </>
     );
   }
