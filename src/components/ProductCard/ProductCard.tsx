@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { IProduct } from '../../types';
-import Button from '../Button/Button';
+import Button from '../Button';
 import './ProductCard.scss';
 
 type ProductCardProps = {
@@ -11,7 +11,7 @@ class ProductCard extends Component<ProductCardProps> {
   render() {
     const { title, category, thumbnail, price } = this.props.product;
     return (
-      <div className="product-card">
+      <div data-testid="product-card" className="product-card">
         <div className="product-card__body">
           <img src={thumbnail} alt={title} className="product-card__image" />
         </div>

@@ -1,5 +1,5 @@
 import { Component, ReactNode } from 'react';
-import Header from '../Header/Header';
+import Header from '../Header';
 import './Layout.scss';
 
 type LayoutProps = {
@@ -8,6 +8,10 @@ type LayoutProps = {
 };
 
 export class Layout extends Component<LayoutProps> {
+  componentDidMount(): void {
+    document.title = `React Components - ${this.props.title}`;
+  }
+
   render() {
     const { title, children } = this.props;
     return (

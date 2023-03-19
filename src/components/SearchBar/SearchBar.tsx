@@ -1,5 +1,4 @@
 import { Component } from 'react';
-
 import { ReactComponent as SearchIcon } from '../../assets/search-icon.svg';
 import './SearchBar.scss';
 

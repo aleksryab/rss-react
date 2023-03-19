@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { IProduct, IResponse } from '../../types';
-import ProductCard from '../ProductCard/ProductCard';
+import ProductCard from '../ProductCard';
 import './ProductList.scss';
 
 type ProductsListState = {
@@ -23,7 +23,7 @@ export class ProductsList extends Component<Record<string, never>, ProductsListS
   render() {
     const { isLoading, products } = this.state;
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <div className="loader">Loading...</div>;
 
     return (
       <div className="product-list">

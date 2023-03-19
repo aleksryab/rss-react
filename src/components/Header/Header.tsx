@@ -15,10 +15,10 @@ export class Header extends Component<HeaderProps> {
         <div className="container header__container">
           <h1 className="header__title">{title}</h1>
           <nav className="header__nav">
-            <NavLink to="/" className="header__link">
+            <NavLink to="/" className="header__link" data-testid="home-link">
               Home
             </NavLink>
-            <NavLink to="/about" className="header__link">
+            <NavLink to="/about" className="header__link" data-testid="about-link">
               About Us
             </NavLink>
           </nav>
