@@ -1,21 +1,9 @@
 import React, { Component } from 'react';
 import { IFormInfo } from '../../types';
 import Button from '../Button';
+import isValidFullName from './helpers/isValidFullName';
 import COUNTRIES from './countries';
 import styles from './InfoForm.module.scss';
-
-const isValidFullName = (fullName: string): boolean => {
-  let isValid = true;
-
-  const names = fullName.split(' ');
-  if (names.length < 2) return false;
-
-  names.forEach((name) => {
-    if (name[0] === name[0].toLowerCase()) isValid = false;
-  });
-
-  return isValid;
-};
 
 type InfoFormProps = {
   onSubmit: (info: IFormInfo) => void;
@@ -214,14 +202,14 @@ export class InfoForm extends Component<InfoFormProps> {
         </div>
         <div className={styles.row}>
           <label>
-            <input ref={this.subscribeRef} type="checkbox" /> I want to receive notifications about
-            promo, sales, etc.
+            <input ref={this.subscribeRef} type="checkbox" name="subscribe" /> I want to receive
+            notifications about promo, sales, etc.
           </label>
         </div>
         <div className={styles.row}>
           <label>
-            <input ref={this.policyRef} type="checkbox" /> I consent to the processing of my
-            personal data
+            <input ref={this.policyRef} type="checkbox" name="policy" /> I consent to the processing
+            of my personal data.
           </label>
           {policyError && <div className={styles.error}>{policyError}</div>}
         </div>
