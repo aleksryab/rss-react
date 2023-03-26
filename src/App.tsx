@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import NotFoundPage from './pages/NotFoundPage';
+import FormsPage from './pages/FormsPage';
 
 export class App extends Component {
   render() {
@@ -11,6 +12,7 @@ export class App extends Component {
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/about" element={<AboutPage />}></Route>
+        <Route path="/forms" element={<FormsPage />}></Route>
         <Route path="*" element={<NotFoundPage />}></Route>
       </Routes>
     );

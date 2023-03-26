@@ -21,6 +21,9 @@ export class Header extends Component<HeaderProps> {
             <NavLink to="/about" className="header__link" data-testid="about-link">
               About Us
             </NavLink>
+            <NavLink to="/forms" className="header__link" data-testid="forms-link">
+              Forms
+            </NavLink>
           </nav>
         </div>
       </header>

@@ -10,7 +10,7 @@ type LayoutProps = {
 
 export class Layout extends Component<LayoutProps> {
   componentDidMount(): void {
-    document.title = `React Components - ${this.props.title}`;
+    document.title = `React - ${this.props.title}`;
   }
 
   render() {
