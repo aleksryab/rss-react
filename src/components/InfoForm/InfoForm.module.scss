@@ -1,0 +1,44 @@
+.form {
+  width: 400px;
+  padding: 20px;
+  box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  background: #fdfeff;
+}
+
+.row {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.label {
+  font-size: 1.125rem;
+  font-weight: bold;
+}
+
+.textInput {
+  width: 100%;
+  padding: 0.375rem;
+  border-radius: 0.375rem;
+  outline: none;
+  border: 1px solid #242424;
+
+  &:focus {
+    border-color: #646cff;
+  }
+}
+
+.radioGroup {
+  display: flex;
+  gap: 20px;
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+  line-height: 1.1;
+}
+
+.submitButton {
+  width: 50%;
+}
