@@ -137,7 +137,9 @@ export class InfoForm extends Component<InfoFormProps> {
     return (
       <form className={styles.form} onSubmit={this.handleSubmit}>
         <div className={styles.row}>
-          <label htmlFor="fullName">Full Name</label>
+          <label className={styles.label} htmlFor="fullName">
+            Full Name
+          </label>
           <input
             className={styles.textInput}
             ref={this.fullNameRef}
@@ -149,7 +151,9 @@ export class InfoForm extends Component<InfoFormProps> {
           {fullNameError && <div className={styles.error}>{fullNameError}</div>}
         </div>
         <div className={styles.row}>
-          <label htmlFor="birthday">Birthday</label>
+          <label className={styles.label} htmlFor="birthday">
+            Birthday
+          </label>
           <input
             className={styles.textInput}
             ref={this.birthdayRef}
@@ -160,7 +164,9 @@ export class InfoForm extends Component<InfoFormProps> {
           {birthdayError && <div className={styles.error}>{birthdayError}</div>}
         </div>
         <div className={styles.row}>
-          <label htmlFor="country">Location</label>
+          <label className={styles.label} htmlFor="country">
+            Location
+          </label>
           <select
             className={styles.textInput}
             ref={this.countryRef}
@@ -178,7 +184,7 @@ export class InfoForm extends Component<InfoFormProps> {
           {countryError && <div className={styles.error}>{countryError}</div>}
         </div>
         <div className={styles.row}>
-          <label>Gender</label>
+          <label className={styles.label}>Gender</label>
           <div className={styles.radioGroup}>
             <label>
               <input ref={this.maleGenderRef} type="radio" name="gender" value="male" />
@@ -192,7 +198,9 @@ export class InfoForm extends Component<InfoFormProps> {
           {ganderError && <div className={styles.error}>{ganderError}</div>}
         </div>
         <div className={styles.row}>
-          <label htmlFor="avatar">Upload avatar</label>
+          <label className={styles.label} htmlFor="avatar">
+            Upload avatar
+          </label>
           <div>
             <input
               ref={this.avatarRef}
