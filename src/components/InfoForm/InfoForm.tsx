@@ -1,6 +1,21 @@
 import React, { Component } from 'react';
 import { IFormInfo } from '../../types';
+import Button from '../Button';
 import COUNTRIES from './countries';
+import styles from './InfoForm.module.scss';
+
+const isValidFullName = (fullName: string): boolean => {
+  let isValid = true;
+
+  const names = fullName.split(' ');
+  if (names.length < 2) return false;
+
+  names.forEach((name) => {
+    if (name[0] === name[0].toLowerCase()) isValid = false;
+  });
+
+  return isValid;
+};
 
 type InfoFormProps = {
   onSubmit: (info: IFormInfo) => void;
@@ -26,62 +41,93 @@ export class InfoForm extends Component<InfoFormProps> {
   avatarRef = React.createRef<HTMLInputElement>();
   policyRef = React.createRef<HTMLInputElement>();
   subscribeRef = React.createRef<HTMLInputElement>();
-
   maleGenderRef = React.createRef<HTMLInputElement>();
   femaleGenderRef = React.createRef<HTMLInputElement>();
 
-  handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  resetForm = () => {
+    [this.fullNameRef, this.birthdayRef, this.countryRef, this.avatarRef].forEach(
+      (ref) => (ref.current!.value = '')
+    );
+    [this.policyRef, this.subscribeRef, this.maleGenderRef, this.femaleGenderRef].forEach(
+      (ref) => (ref.current!.checked = false)
+    );
+  };
 
+  validateForm = ({ fullName, birthday, country, gender, avatar, policy }: IFormInfo): boolean => {
     const errors = { ...this.initialErrors };
     let isError = false;
 
-    if (!this.fullNameRef.current?.value) {
+    if (!fullName) {
       errors.fullNameError = 'Please introduce yourself';
+      isError = true;
+    } else if (!isValidFullName(fullName)) {
+      errors.fullNameError =
+        'The full name must consist of at least two words starting with a capital letter';
       isError = true;
     }
 
-    if (!this.birthdayRef.current?.value) {
+    if (!birthday) {
       errors.birthdayError = 'Please choose your birthday';
       isError = true;
     }
 
-    if (!this.countryRef.current?.value) {
-      errors.countryError = 'Please choose country';
+    if (!country) {
+      errors.countryError = 'Please choose your location';
       isError = true;
     }
 
-    if (!this.avatarRef.current?.value) {
-      errors.avatarError = 'Please choose avatar picture';
+    if (!avatar) {
+      errors.avatarError = 'Please upload avatar picture';
       isError = true;
     }
 
-    if (!this.policyRef.current?.checked) {
+    if (!policy) {
       errors.policyError = 'Please agree with our terms';
       isError = true;
     }
 
-    let checkedGender = '';
-    if (this.maleGenderRef.current?.checked) checkedGender = this.maleGenderRef.current.value;
-    if (this.femaleGenderRef.current?.checked) checkedGender = this.femaleGenderRef.current.value;
-    if (!checkedGender) {
+    if (!gender) {
       errors.ganderError = 'Please select gender';
       isError = true;
     }
 
-    // this.setState({ errors: { fullNameError, birthdayError, countryError } });
-    if (!isError) {
-      this.props.onSubmit({
-        fullName: this.fullNameRef.current!.value,
-        birthday: this.birthdayRef.current!.value,
-        country: this.countryRef.current!.value,
-        gender: checkedGender,
-        avatar: this.avatarRef.current!.value,
-        subscribe: this.subscribeRef.current!.checked,
-      });
-    }
-
     this.setState({ errors });
+    return !isError;
+  };
+
+  getAvatar = (): string => {
+    let avatar = '';
+    if (this.avatarRef.current?.files?.length) {
+      avatar = URL.createObjectURL(this.avatarRef.current.files[0]);
+    }
+    return avatar;
+  };
+
+  getGender = (): string => {
+    let gender = '';
+    if (this.maleGenderRef.current?.checked) gender = this.maleGenderRef.current.value;
+    if (this.femaleGenderRef.current?.checked) gender = this.femaleGenderRef.current.value;
+    return gender;
+  };
+
+  handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const fields = {
+      fullName: this.fullNameRef.current?.value ?? '',
+      birthday: this.birthdayRef.current?.value ?? '',
+      country: this.countryRef.current?.value ?? '',
+      subscribe: this.subscribeRef.current?.checked ?? false,
+      policy: this.policyRef.current?.checked ?? false,
+      avatar: this.getAvatar(),
+      gender: this.getGender(),
+    };
+
+    const isValid = this.validateForm(fields);
+    if (isValid) {
+      this.props.onSubmit(fields);
+      this.resetForm();
+    }
   };
 
   render() {
@@ -89,20 +135,39 @@ export class InfoForm extends Component<InfoFormProps> {
       this.state.errors;
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div>
-          <input ref={this.fullNameRef} type="text" placeholder="Full Name" />
-          <div>{fullNameError}</div>
+      <form className={styles.form} onSubmit={this.handleSubmit}>
+        <div className={styles.row}>
+          <label htmlFor="fullName">Full Name</label>
+          <input
+            className={styles.textInput}
+            ref={this.fullNameRef}
+            id="fullName"
+            type="text"
+            name="fullName"
+            placeholder="Full Name"
+          />
+          {fullNameError && <div className={styles.error}>{fullNameError}</div>}
         </div>
-        <div>
-          <label>
-            Birthday
-            <input ref={this.birthdayRef} type="date" />
-          </label>
-          <div>{birthdayError}</div>
+        <div className={styles.row}>
+          <label htmlFor="birthday">Birthday</label>
+          <input
+            className={styles.textInput}
+            ref={this.birthdayRef}
+            type="date"
+            id="birthday"
+            name="birthday"
+          />
+          {birthdayError && <div className={styles.error}>{birthdayError}</div>}
         </div>
-        <div>
-          <select ref={this.countryRef} defaultValue="">
+        <div className={styles.row}>
+          <label htmlFor="country">Location</label>
+          <select
+            className={styles.textInput}
+            ref={this.countryRef}
+            id="country"
+            name="country"
+            defaultValue=""
+          >
             <option value="" disabled>
               Choose your country
             </option>
@@ -110,41 +175,50 @@ export class InfoForm extends Component<InfoFormProps> {
               <option key={country.name}>{country.name}</option>
             ))}
           </select>
-          <div>{countryError}</div>
+          {countryError && <div className={styles.error}>{countryError}</div>}
         </div>
-        <div>
-          <label>
-            <input ref={this.maleGenderRef} type="radio" name="gender" value="male" />
-            Male
-          </label>
-          <label>
-            <input ref={this.femaleGenderRef} type="radio" name="gender" value="female" />
-            Female
-          </label>
-          <div>{ganderError}</div>
+        <div className={styles.row}>
+          <label>Gender</label>
+          <div className={styles.radioGroup}>
+            <label>
+              <input ref={this.maleGenderRef} type="radio" name="gender" value="male" />
+              Male
+            </label>
+            <label>
+              <input ref={this.femaleGenderRef} type="radio" name="gender" value="female" />
+              Female
+            </label>
+          </div>
+          {ganderError && <div className={styles.error}>{ganderError}</div>}
         </div>
-        <div>
-          <label>
-            Upload avatar
-            <input ref={this.avatarRef} type="file" accept="image/*,.png,.jpg,.gif,.web" />
-          </label>
-          <div>{avatarError}</div>
+        <div className={styles.row}>
+          <label htmlFor="avatar">Upload avatar</label>
+          <div>
+            <input
+              ref={this.avatarRef}
+              id="avatar"
+              type="file"
+              name="avatar"
+              accept="image/*,.png,.jpg,.gif,.web"
+            />
+          </div>
+          {avatarError && <div className={styles.error}>{avatarError}</div>}
         </div>
-        <div>
-          <label>
-            <input ref={this.policyRef} type="checkbox" /> I consent to the processing of my
-            personal data
-          </label>
-          <div>{policyError}</div>
-        </div>
-        <div>
+        <div className={styles.row}>
           <label>
             <input ref={this.subscribeRef} type="checkbox" /> I want to receive notifications about
             promo, sales, etc.
           </label>
         </div>
+        <div className={styles.row}>
+          <label>
+            <input ref={this.policyRef} type="checkbox" /> I consent to the processing of my
+            personal data
+          </label>
+          {policyError && <div className={styles.error}>{policyError}</div>}
+        </div>
         <div>
-          <button type="submit">Submit</button>
+          <Button title="Submit" type="submit" className={styles.submitButton} />
         </div>
       </form>
     );

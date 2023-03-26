@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import './Button.scss';
 
-type ButtonProps = {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   title: string;
   icon?: React.ReactNode;
-};
+}
 
 class Button extends Component<ButtonProps> {
   render() {
-    const { title, icon } = this.props;
+    const { title, icon, className, ...props } = this.props;
 
     return (
-      <button className="button" type="button">
+      <button className={`button ${className}`} {...props}>
         {icon && <span className="button__icon">{icon}</span>}
         <span className="button__title">{title}</span>
       </button>

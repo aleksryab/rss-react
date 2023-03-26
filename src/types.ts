@@ -18,3 +18,13 @@ export interface IResponse {
   skip: number;
   limit: number;
 }
+
+export interface IFormInfo {
+  fullName: string;
+  birthday: string;
+  country: string;
+  gender: string;
+  avatar: string;
+  subscribe: boolean;
+  policy: boolean;
+}
