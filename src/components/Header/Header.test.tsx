@@ -1,14 +1,10 @@
-import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { screen } from '@testing-library/react';
 import Header from './Header';
+import renderWithRouter from '../../utils/RenderWithRouter';
 
 describe('Header', () => {
   it('should render title', () => {
-    render(
-      <MemoryRouter>
-        <Header title="Page" />
-      </MemoryRouter>
-    );
+    renderWithRouter(<Header title="Page" />);
 
     expect(
       screen.getByRole('heading', {
@@ -18,12 +14,7 @@ describe('Header', () => {
   });
 
   it('should render navigation', () => {
-    render(
-      <MemoryRouter>
-        <Header title="Page" />
-      </MemoryRouter>
-    );
-
+    renderWithRouter(<Header title="Page" />);
     expect(screen.getByRole('navigation')).toBeInTheDocument();
   });
 });

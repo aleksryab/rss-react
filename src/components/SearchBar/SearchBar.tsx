@@ -1,58 +1,40 @@
-import { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ReactComponent as SearchIcon } from '../../assets/search-icon.svg';
 import './SearchBar.scss';
 
 const SEARCH_TEXT_KEY = 'search-text';
 
-type SearchBarProps = Record<string, never>;
+function SearchBar() {
+  const [searchText, setSearchText] = useState(localStorage.getItem(SEARCH_TEXT_KEY) ?? '');
 
-type SearchBarState = {
-  inputText: string;
-};
+  useEffect(() => {
+    localStorage.setItem(SEARCH_TEXT_KEY, searchText);
+  }, [searchText]);
 
-export class SearchBar extends Component<SearchBarProps, SearchBarState> {
-  state = {
-    inputText: localStorage.getItem(SEARCH_TEXT_KEY) ?? '',
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
   };
 
-  saveSearchTextToLocalStorage = () => {
-    localStorage.setItem(SEARCH_TEXT_KEY, this.state.inputText);
-  };
-
-  componentDidMount() {
-    window.addEventListener('beforeunload', this.saveSearchTextToLocalStorage);
-  }
-
-  componentWillUnmount() {
-    this.saveSearchTextToLocalStorage();
-    window.removeEventListener('beforeunload', this.saveSearchTextToLocalStorage);
-  }
-
-  handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ inputText: e.target.value });
-  };
-
-  handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
 
-  render() {
-    const { inputText } = this.state;
-    return (
-      <form className="search-bar" onSubmit={this.handleSubmit}>
-        <label className="search-bar__label" htmlFor="search-product">
-          <SearchIcon />
-        </label>
-        <input
-          placeholder="Search product"
-          id="search-product"
-          className="search-bar__input"
-          value={inputText}
-          onChange={this.handleInputChange}
-        />
-      </form>
-    );
-  }
+  return (
+    <form className="search-bar" onSubmit={handleSubmit}>
+      <label className="search-bar__label" htmlFor="search-product">
+        <SearchIcon />
+      </label>
+      <input
+        type="text"
+        name="search"
+        placeholder="Search product"
+        id="search-product"
+        className="search-bar__input"
+        value={searchText}
+        onChange={handleInputChange}
+      />
+    </form>
+  );
 }
 
 export default SearchBar;

@@ -1,40 +1,37 @@
-import React, { Component } from 'react';
+import { useEffect, useState } from 'react';
 import { IProduct, IResponse } from '../../types';
 import ProductCard from '../ProductCard';
 import './ProductList.scss';
 
-type ProductsListState = {
-  isLoading: boolean;
-  products: IProduct[];
-};
+function ProductsList() {
+  const [products, setProducts] = useState<IProduct[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-export class ProductsList extends Component<Record<string, never>, ProductsListState> {
-  state = {
-    isLoading: true,
-    products: [],
-  };
-
-  componentDidMount(): void {
+  useEffect(() => {
     fetch('https://dummyjson.com/products?limit=21')
       .then((response) => response.json() as Promise<IResponse>)
-      .then((data) => this.setState({ isLoading: false, products: data.products }));
-  }
+      .then((data) => {
+        setProducts(data.products);
+        setIsLoading(false);
+      })
+      .catch(() => console.error('Server Error!'));
+  }, []);
 
-  render() {
-    const { isLoading, products } = this.state;
-
-    if (isLoading) return <div className="loader">Loading...</div>;
-
-    return (
-      <div className="product-list">
-        {products.map((product: IProduct) => (
-          <div className="product-list__item" key={product.id}>
-            <ProductCard product={product} />
-          </div>
-        ))}
-      </div>
-    );
-  }
+  return (
+    <>
+      {isLoading ? (
+        <div className="loader">Loading...</div>
+      ) : (
+        <div className="product-list">
+          {products.map((product: IProduct) => (
+            <div className="product-list__item" key={product.id}>
+              <ProductCard product={product} />
+            </div>
+          ))}
+        </div>
+      )}
+    </>
+  );
 }
 
 export default ProductsList;

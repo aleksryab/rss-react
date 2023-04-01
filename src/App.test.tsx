@@ -1,7 +1,11 @@
 import { screen } from '@testing-library/react';
+
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './utils/RenderWithRouter';
 import App from './App';
+import mockFetch from './utils/mockFetch';
+
+mockFetch();
 
 describe('App', () => {
   it('should render h1', () => {
