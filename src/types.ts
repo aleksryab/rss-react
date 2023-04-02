@@ -20,7 +20,8 @@ export interface IResponse {
 }
 
 export interface IFormInfo {
-  fullName: string;
+  firstName: string;
+  lastName: string;
   birthday: string;
   country: string;
   gender: string;

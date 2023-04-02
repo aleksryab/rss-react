@@ -2,9 +2,10 @@ import { render, screen } from '@testing-library/react';
 import FormCard from './FormCard';
 
 const data = {
-  fullName: 'John Doe',
+  firstName: 'John',
+  lastName: 'Doe',
   birthday: '1999-06-03',
-  country: 'SomeWhere',
+  country: 'Some Country',
   gender: 'male',
   avatar: 'https://i.pravatar.cc/300?img=3',
   subscribe: true,
@@ -17,11 +18,14 @@ describe('Form Card', () => {
   });
 
   it('should render avatar img', () => {
-    expect(screen.getByAltText(data.fullName)).toHaveAttribute('src', data.avatar);
+    expect(screen.getByAltText(`${data.firstName} ${data.lastName}`)).toHaveAttribute(
+      'src',
+      data.avatar
+    );
   });
 
   it('should render full name', () => {
-    expect(screen.getByText(data.fullName)).toBeInTheDocument();
+    expect(screen.getByText(`${data.firstName} ${data.lastName}`)).toBeInTheDocument();
   });
 
   it('should render birthday', () => {

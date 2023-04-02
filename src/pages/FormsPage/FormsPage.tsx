@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { useState } from 'react';
 import Layout from '../../components/Layout';
 import InfoForm from '../../components/InfoForm';
 import { IFormInfo } from '../../types';
@@ -6,45 +6,34 @@ import FormCard from '../../components/FormCard';
 import styles from './FormsPage.module.scss';
 import ConfirmMessage from '../../components/ConfirmMessage';
 
-type FormsPageProps = Record<string, never>;
-type FormsPageState = {
-  formCards: IFormInfo[];
-  showMessage: boolean;
-};
+function FormsPage() {
+  const [formCards, setFormCards] = useState<IFormInfo[]>([]);
+  const [showMessage, setShowMessage] = useState(false);
 
-export class FormsPage extends Component<FormsPageProps, FormsPageState> {
-  state = {
-    formCards: [],
-    showMessage: false,
+  const handleSubmit = (info: IFormInfo) => {
+    setFormCards((cards) => [...cards, info]);
+    setShowMessage(true);
   };
 
-  handleSubmit = (info: IFormInfo) => {
-    this.setState((state) => ({ formCards: [...state.formCards, info], showMessage: true }));
+  const handleCloseMessage = () => {
+    setShowMessage(false);
   };
 
-  handleCloseMessage = () => {
-    this.setState({ showMessage: false });
-  };
-
-  render() {
-    const { formCards, showMessage } = this.state;
-
-    return (
-      <Layout title="Forms Page">
-        <div data-testid="forms-page">
-          <div className={styles.formContainer}>
-            <InfoForm onSubmit={this.handleSubmit} />
-          </div>
-          <div className={styles.cardsContainer}>
-            {formCards.map((card, idx) => (
-              <FormCard cardInfo={card} key={idx} />
-            ))}
-          </div>
-          {showMessage && <ConfirmMessage onClose={this.handleCloseMessage} />}
+  return (
+    <Layout title="Forms Page">
+      <div data-testid="forms-page">
+        <div className={styles.formContainer}>
+          <InfoForm onSubmit={handleSubmit} />
         </div>
-      </Layout>
-    );
-  }
+        <div className={styles.cardsContainer}>
+          {formCards.map((card, idx) => (
+            <FormCard cardInfo={card} key={idx} />
+          ))}
+        </div>
+        {showMessage && <ConfirmMessage onClose={handleCloseMessage} />}
+      </div>
+    </Layout>
+  );
 }
 
 export default FormsPage;

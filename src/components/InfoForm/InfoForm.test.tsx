@@ -8,9 +8,17 @@ describe('Info Form', () => {
     render(<InfoForm onSubmit={handleSubmit} />);
   });
 
-  it('should render full name input with label', () => {
-    expect(screen.getByLabelText('Full Name')).toBeInTheDocument();
-    expect(screen.getByRole('textbox')).toHaveAttribute('name', 'fullName');
+  it('should render first name input with label', () => {
+    expect(screen.getByLabelText('First Name')).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: 'First Name' })).toHaveAttribute(
+      'name',
+      'firstName'
+    );
+  });
+
+  it('should render last name input with label', () => {
+    expect(screen.getByLabelText('Last Name')).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: 'Last Name' })).toHaveAttribute('name', 'lastName');
   });
 
   it('should render country select with label', () => {
