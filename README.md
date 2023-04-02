@@ -1,9 +1,9 @@
-# Week 2
+# Week 3
 
-## React. Forms
+## React. Hooks
 
-- Task: https://github.com/rolling-scopes-school/tasks/tree/master/react/modules/module02
-- Deploy: https://aleksryab-rss-react.netlify.app/forms
+- Task: https://github.com/rolling-scopes-school/tasks/tree/master/react/modules/module03
+- Deploy: https://aleksryab-rss-react.netlify.app
 - Student: Aleksey Ryabtsev (@aleksryab)
   - github: [@aleksryab](https://github.com/aleksryab)
   - discord: @gambleks#3628
