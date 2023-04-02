@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ReactComponent as SearchIcon } from '../../assets/search-icon.svg';
 import './SearchBar.scss';
 
@@ -6,10 +6,24 @@ const SEARCH_TEXT_KEY = 'search-text';
 
 function SearchBar() {
   const [searchText, setSearchText] = useState(localStorage.getItem(SEARCH_TEXT_KEY) ?? '');
+  const searchTextRef = useRef(searchText);
 
   useEffect(() => {
-    localStorage.setItem(SEARCH_TEXT_KEY, searchText);
+    searchTextRef.current = searchText;
   }, [searchText]);
+
+  useEffect(() => {
+    const saveSearchToLocalStorage = () => {
+      localStorage.setItem(SEARCH_TEXT_KEY, searchTextRef.current);
+    };
+
+    window.addEventListener('beforeunload', saveSearchToLocalStorage);
+
+    return () => {
+      saveSearchToLocalStorage();
+      window.removeEventListener('beforeunload', saveSearchToLocalStorage);
+    };
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
