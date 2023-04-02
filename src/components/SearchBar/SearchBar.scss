@@ -1,0 +1,28 @@
+.search-bar {
+  position: relative;
+  max-width: 536px;
+  height: 44px;
+  margin: 0 auto;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  color: #242424;
+  border: 1px solid currentColor;
+  border-radius: 44px;
+
+  &__label {
+    display: flex;
+    flex-shrink: 0;
+    margin-right: 11px;
+  }
+
+  &__input {
+    outline: none;
+    border: none;
+    flex-grow: 1;
+  }
+
+  &:focus-within {
+    color: #646cff;
+  }
+}
