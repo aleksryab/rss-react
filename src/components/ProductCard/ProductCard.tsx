@@ -1,5 +1,6 @@
 import { IProduct } from '../../types';
 import Button from '../Button';
+import StarRating from '../StarRating/StarRating';
 import './ProductCard.scss';
 
 type ProductCardProps = {
@@ -7,7 +8,7 @@ type ProductCardProps = {
 };
 
 function ProductCard({ product }: ProductCardProps) {
-  const { title, category, thumbnail, price } = product;
+  const { title, category, thumbnail, price, rating } = product;
 
   return (
     <div data-testid="product-card" className="product-card">
@@ -24,6 +25,9 @@ function ProductCard({ product }: ProductCardProps) {
           </a>
         </div>
         <div className="product-card__price">${price}</div>
+        <div className="product-card__rating">
+          <StarRating rating={rating} />
+        </div>
         <div className="product-card__button">
           <Button type="button" title="Add to cart" />
         </div>
