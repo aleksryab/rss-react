@@ -1,10 +1,7 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './utils/RenderWithRouter';
-import mockFetch from './utils/mockFetch';
 import App from './App';
-
-mockFetch();
 
 describe('App', () => {
   it('should render home page', () => {
