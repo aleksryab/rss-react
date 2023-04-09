@@ -1,36 +1,24 @@
-import { useEffect, useState } from 'react';
-import { IProduct, IResponse } from '../../types';
+import { IProduct } from '../../types';
 import ProductCard from '../ProductCard';
-import './ProductList.scss';
+import styles from './ProductList.module.scss';
 
-function ProductsList() {
-  const [products, setProducts] = useState<IProduct[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+type ProductListProps = {
+  products: IProduct[];
+};
 
-  useEffect(() => {
-    fetch('https://dummyjson.com/products?limit=21')
-      .then((response) => response.json() as Promise<IResponse>)
-      .then((data) => {
-        setProducts(data.products);
-        setIsLoading(false);
-      })
-      .catch(() => console.error('Server Error!'));
-  }, []);
+function ProductsList({ products }: ProductListProps) {
+  const isEmptyList = !products.length;
+
+  if (isEmptyList) return <p className={styles.emptyMessage}>Products not found!</p>;
 
   return (
-    <>
-      {isLoading ? (
-        <div className="loader">Loading...</div>
-      ) : (
-        <div className="product-list">
-          {products.map((product: IProduct) => (
-            <div className="product-list__item" key={product.id}>
-              <ProductCard product={product} />
-            </div>
-          ))}
+    <div className={styles.list}>
+      {products.map((product: IProduct) => (
+        <div className={styles.item} key={product.id}>
+          <ProductCard product={product} />
         </div>
-      )}
-    </>
+      ))}
+    </div>
   );
 }
 

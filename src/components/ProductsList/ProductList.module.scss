@@ -1,10 +1,11 @@
-.product-list {
+.list {
   padding-top: 50px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 30px;
 }
 
-.loader {
-  margin: 30px auto;
+.emptyMessage {
+  font-size: 2rem;
+  font-weight: bold;
 }

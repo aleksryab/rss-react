@@ -1,36 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { ReactComponent as SearchIcon } from '../../assets/search-icon.svg';
 import './SearchBar.scss';
 
-const SEARCH_TEXT_KEY = 'search-text';
+type SearchBarProps = {
+  onSearch: (searchText: string) => void;
+  initialSearchText: string;
+};
 
-function SearchBar() {
-  const [searchText, setSearchText] = useState(localStorage.getItem(SEARCH_TEXT_KEY) ?? '');
-  const searchTextRef = useRef(searchText);
-
-  useEffect(() => {
-    searchTextRef.current = searchText;
-  }, [searchText]);
-
-  useEffect(() => {
-    const saveSearchToLocalStorage = () => {
-      localStorage.setItem(SEARCH_TEXT_KEY, searchTextRef.current);
-    };
-
-    window.addEventListener('beforeunload', saveSearchToLocalStorage);
-
-    return () => {
-      saveSearchToLocalStorage();
-      window.removeEventListener('beforeunload', saveSearchToLocalStorage);
-    };
-  }, []);
+function SearchBar({ onSearch, initialSearchText }: SearchBarProps) {
+  const [searchText, setSearchText] = useState(initialSearchText);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.target.value);
+    const text = e.target.value;
+    setSearchText(text);
+    if (!text) onSearch('');
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    onSearch(searchText);
   };
 
   return (
@@ -39,7 +27,7 @@ function SearchBar() {
         <SearchIcon />
       </label>
       <input
-        type="text"
+        type="search"
         name="search"
         placeholder="Search product"
         id="search-product"
