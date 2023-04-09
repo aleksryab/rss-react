@@ -1,8 +1,8 @@
-# Week 3
+# Week 4
 
-## React. Hooks
+## React. API
 
-- Task: https://github.com/rolling-scopes-school/tasks/tree/master/react/modules/module03
+- Task: https://github.com/rolling-scopes-school/tasks/tree/master/react/modules/module04
 - Deploy: https://aleksryab-rss-react.netlify.app
 - Student: Aleksey Ryabtsev (@aleksryab)
   - github: [@aleksryab](https://github.com/aleksryab)
