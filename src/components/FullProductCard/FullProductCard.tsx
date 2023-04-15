@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useGetProductQuery } from '../../store/productsApi';
 import Loader from '../Loader/Loader';
-import { IProduct } from '../../types';
-import styles from './FullProductCard.module.scss';
 import StarRating from '../StarRating/StarRating';
 import Button from '../Button/Button';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import styles from './FullProductCard.module.scss';
 
 type FullProductCardProps = {
   id: number;
@@ -12,25 +12,7 @@ type FullProductCardProps = {
 };
 
 function FullProductCard({ id, onClose }: FullProductCardProps) {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
-  const [product, setProduct] = useState<IProduct | null>(null);
-
-  useEffect(() => {
-    fetch(`https://dummyjson.com/products/${id}`)
-      .then((response) => {
-        if (!response.ok) throw new Error('Product not found');
-        return response.json() as Promise<IProduct>;
-      })
-      .then((data) => {
-        setProduct(data);
-        setIsLoading(false);
-      })
-      .catch(() => {
-        setIsError(true);
-        setIsLoading(false);
-      });
-  }, [id]);
+  const { data: product, isLoading, isError } = useGetProductQuery(id);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -52,6 +34,7 @@ function FullProductCard({ id, onClose }: FullProductCardProps) {
         </button>
 
         {isLoading && <Loader />}
+
         {isError && <ErrorMessage />}
 
         {product && (
