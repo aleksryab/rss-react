@@ -1,18 +1,21 @@
 import { useState } from 'react';
 import Layout from '../../components/Layout';
 import InfoForm from '../../components/InfoForm';
-import { IFormInfo } from '../../types';
 import FormCard from '../../components/FormCard';
-import styles from './FormsPage.module.scss';
 import ConfirmMessage from '../../components/ConfirmMessage';
+import { useAppSelector } from '../../hooks/redux';
+import useActions from '../../hooks/useActions';
+import { IFormInfo } from '../../types';
+import styles from './FormsPage.module.scss';
 
 function FormsPage() {
-  const [formCards, setFormCards] = useState<IFormInfo[]>([]);
+  const formCards = useAppSelector((state) => state.formCards.cards);
+  const { addFormCard } = useActions();
   const [showMessage, setShowMessage] = useState(false);
 
   const handleSubmit = (info: IFormInfo) => {
-    setFormCards((cards) => [...cards, info]);
     setShowMessage(true);
+    addFormCard(info);
   };
 
   const handleCloseMessage = () => {
@@ -26,8 +29,8 @@ function FormsPage() {
           <InfoForm onSubmit={handleSubmit} />
         </div>
         <div className={styles.cardsContainer}>
-          {formCards.map((card, idx) => (
-            <FormCard cardInfo={card} key={idx} />
+          {formCards.map((card) => (
+            <FormCard cardInfo={card} key={card.id} />
           ))}
         </div>
         {showMessage && <ConfirmMessage onClose={handleCloseMessage} />}

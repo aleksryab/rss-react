@@ -30,7 +30,8 @@ function InfoForm({ onSubmit }: InfoFormProps) {
 
   const collectInfo: SubmitHandler<IFormInputs> = (data) => {
     const avatar = URL.createObjectURL(data.avatar[0]);
-    onSubmit({ ...data, avatar });
+    const id = Date.now();
+    onSubmit({ ...data, id, avatar });
     reset();
   };
 

@@ -20,6 +20,7 @@ export interface IResponse {
 }
 
 export interface IFormInfo {
+  id: number;
   firstName: string;
   lastName: string;
   birthday: string;
