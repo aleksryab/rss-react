@@ -8,6 +8,13 @@ import svgr from 'vite-plugin-svgr';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [svgr(), react()],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "src/styles/vars.scss";`,
+      },
+    },
+  },
   test: {
     globals: true,
     environment: 'jsdom',
