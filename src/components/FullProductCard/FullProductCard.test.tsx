@@ -1,16 +1,17 @@
-import { render, screen, act } from '@testing-library/react';
+import { screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 import FullProductCard from './FullProductCard';
+import renderWithProvider from '../../utils/RenderWithProvider';
 
 const onCloseFunc = vi.fn();
 
 describe('Full Product Card', () => {
   beforeEach(async () => {
-    await act(() => render(<FullProductCard id={1} onClose={onCloseFunc} />));
+    await act(() => renderWithProvider(<FullProductCard id={1} onClose={onCloseFunc} />));
   });
 
-  it('should render product title', () => {
+  it('should render full card', async () => {
     expect(screen.getByText('First product')).toBeInTheDocument();
   });
 
@@ -54,6 +55,6 @@ describe('Full Product Card', () => {
 });
 
 test('Should render error message', async () => {
-  await act(() => render(<FullProductCard id={404} onClose={onCloseFunc} />));
+  await act(() => renderWithProvider(<FullProductCard id={404} onClose={onCloseFunc} />));
   expect(screen.getByText(/Something went wrong. Try again later/)).toBeInTheDocument();
 });

@@ -1,7 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+import { vi } from 'vitest';
+import userEvent from '@testing-library/user-event';
 import InfoForm from './InfoForm';
 
-const handleSubmit = () => {};
+const handleSubmit = vi.fn();
 
 describe('Info Form', () => {
   beforeEach(() => {
@@ -60,5 +62,11 @@ describe('Info Form', () => {
 
   it('should render submit button', () => {
     expect(screen.getByRole('button', { name: /submit/i })).toBeInTheDocument();
+  });
+
+  it('should not call submit function with empty fields', async () => {
+    const submitButton = screen.getByRole('button', { name: /submit/i });
+    await waitFor(() => userEvent.click(submitButton));
+    expect(handleSubmit).toHaveBeenCalledTimes(0);
   });
 });

@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import FormCard from './FormCard';
 
 const data = {
+  id: 1,
   firstName: 'John',
   lastName: 'Doe',
   birthday: '1999-06-03',

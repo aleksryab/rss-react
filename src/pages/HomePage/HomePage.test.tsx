@@ -1,20 +1,20 @@
 import { screen, act } from '@testing-library/react';
 import HomePage from './HomePage';
-import renderWithRouter from '../../utils/RenderWithRouter';
+import renderWithProvider from '../../utils/RenderWithProvider';
 
 describe('Home page', () => {
   it('should render search box', () => {
-    renderWithRouter(<HomePage />);
+    renderWithProvider(<HomePage />);
     expect(screen.getByRole('searchbox')).toBeInTheDocument();
   });
 
   it('should render loader', () => {
-    renderWithRouter(<HomePage />);
+    renderWithProvider(<HomePage />);
     expect(screen.getByTestId('loader')).toBeInTheDocument();
   });
 
   it('should fetch products list', async () => {
-    await act(() => renderWithRouter(<HomePage />));
+    await act(() => renderWithProvider(<HomePage />));
     expect(screen.queryByTestId('loader')).not.toBeInTheDocument();
     expect(screen.getByText('First product')).toBeInTheDocument();
     expect(screen.getByText('Second product')).toBeInTheDocument();

@@ -9,7 +9,7 @@ import { IFormInfo } from '../../types';
 import styles from './FormsPage.module.scss';
 
 function FormsPage() {
-  const formCards = useAppSelector((state) => state.formCards.cards);
+  const formCards = useAppSelector((state) => state.formCards);
   const { addFormCard } = useActions();
   const [showMessage, setShowMessage] = useState(false);
 

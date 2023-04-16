@@ -36,7 +36,7 @@ function InfoForm({ onSubmit }: InfoFormProps) {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit(collectInfo)}>
+    <form className={styles.form} onSubmit={handleSubmit(collectInfo)} name="info">
       <div className={styles.row}>
         <label className={styles.label} htmlFor="firstName">
           First Name

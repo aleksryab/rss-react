@@ -1,31 +1,31 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import renderWithRouter from './utils/RenderWithRouter';
+import renderWithProvider from './utils/RenderWithProvider';
 import App from './App';
 
 describe('App', () => {
   it('should render home page', () => {
-    renderWithRouter(<App />);
+    renderWithProvider(<App />);
     expect(screen.getByTestId('home-page')).toBeInTheDocument();
   });
 
   it('should render about page', () => {
-    renderWithRouter(<App />, '/about');
+    renderWithProvider(<App />, '/about');
     expect(screen.getByTestId('about-page')).toBeInTheDocument();
   });
 
   it('should render forms page', () => {
-    renderWithRouter(<App />, '/forms');
+    renderWithProvider(<App />, '/forms');
     expect(screen.getByTestId('forms-page')).toBeInTheDocument();
   });
 
   it('should render 404 page', () => {
-    renderWithRouter(<App />, '/dkjfkl');
+    renderWithProvider(<App />, '/dkjfkl');
     expect(screen.getByTestId('404-page')).toBeInTheDocument();
   });
 
   it('should router work', async () => {
-    renderWithRouter(<App />);
+    renderWithProvider(<App />);
     const homeLink = screen.getByTestId('home-link');
     const aboutLink = screen.getByTestId('about-link');
 

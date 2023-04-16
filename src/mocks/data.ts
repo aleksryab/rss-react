@@ -72,3 +72,15 @@ export const testSearchResponse = {
   skip: 0,
   limit: 1,
 };
+
+export const formCardData = {
+  id: 1,
+  firstName: 'John',
+  lastName: 'Doe',
+  birthday: '1999-06-03',
+  country: 'Some Country',
+  gender: 'male',
+  avatar: 'https://i.pravatar.cc/300?img=3',
+  subscribe: true,
+  policy: true,
+};
