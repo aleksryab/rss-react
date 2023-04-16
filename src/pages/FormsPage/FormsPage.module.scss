@@ -1,0 +1,11 @@
+.formContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px 75px;
+}

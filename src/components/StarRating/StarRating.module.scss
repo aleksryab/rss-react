@@ -1,0 +1,20 @@
+.rating {
+  display: inline-flex;
+  position: relative;
+  unicode-bidi: bidi-override;
+  color: #c5c5c5;
+  font-size: 1.25rem;
+  text-shadow: 0 1px 0 #a2a2a2;
+
+  &::after {
+    content: '★★★★★';
+    position: absolute;
+    z-index: 1;
+    display: block;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    color: gold;
+    width: var(--rating);
+  }
+}

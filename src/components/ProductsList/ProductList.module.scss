@@ -1,0 +1,10 @@
+.list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+}
+
+.emptyMessage {
+  font-size: 2rem;
+  font-weight: bold;
+}
