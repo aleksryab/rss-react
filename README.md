@@ -1,8 +1,8 @@
-# Week 4
+# Week 5
 
-## React. API
+## React. Redux
 
-- Task: https://github.com/rolling-scopes-school/tasks/tree/master/react/modules/module04
+- Task: https://github.com/rolling-scopes-school/tasks/tree/master/react/modules/module05
 - Deploy: https://aleksryab-rss-react.netlify.app
 - Student: Aleksey Ryabtsev (@aleksryab)
   - github: [@aleksryab](https://github.com/aleksryab)
