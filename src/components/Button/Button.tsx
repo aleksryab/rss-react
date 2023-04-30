@@ -8,7 +8,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 function Button({ title, icon, className, ...props }: ButtonProps) {
   return (
-    <button className={`button ${className}`} {...props}>
+    <button className={`button ${className ?? ''}`} {...props}>
       {icon && <span className="button__icon">{icon}</span>}
       <span className="button__title">{title}</span>
     </button>

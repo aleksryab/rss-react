@@ -11,7 +11,7 @@ function FormCard({ cardInfo }: FormCardProps) {
   const fullName = `${firstName} ${lastName}`;
 
   return (
-    <div className={styles.container}>
+    <div data-testid="form-card" className={styles.container}>
       <div>
         <img className={styles.avatar} src={avatar} alt={fullName} />
       </div>

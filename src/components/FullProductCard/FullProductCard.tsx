@@ -38,7 +38,7 @@ function FullProductCard({ id, onClose }: FullProductCardProps) {
         {isError && <ErrorMessage />}
 
         {product && (
-          <div className={styles.cardContent}>
+          <div data-testid="full-card" className={styles.cardContent}>
             <div className={styles.cardColumn}>
               <div className={styles.header}>
                 <h2 className={styles.title}>{product.title}</h2>
