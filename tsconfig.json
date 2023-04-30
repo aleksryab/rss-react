@@ -19,6 +19,11 @@
     "jsx": "react-jsx",
     "baseUrl": "./src"
   },
+  "references": [{ "path": "./tsconfig.node.json" }],
   "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "ts-node": {
+    "esm": true,
+    "transpileOnly": true,
+    "experimentalSpecifierResolution": "node"
+  }
 }
